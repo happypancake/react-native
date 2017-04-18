@@ -57,6 +57,16 @@ function getFakeModuleMap(hasteMap: HasteMap) {
   };
 }
 
+const nullModule = {
+  path: '/',
+  getPackage() {},
+  hash() {
+    throw new Error('not implemented');
+  },
+  readCached() { throw new Error('not implemented'); },
+  readFresh() { return Promise.reject(new Error('not implemented')); },
+};
+
 exports.createResolveFn = function(options: ResolveOptions): ResolveFn {
   const {
     assetExts,
@@ -113,7 +123,9 @@ exports.createResolveFn = function(options: ResolveOptions): ResolveFn {
       });
     }
 
-    const from = new Module(source, moduleCache, getTransformedFile(source));
+    const from = source != null
+      ? new Module(source, moduleCache, getTransformedFile(source))
+      : nullModule;
     hasteMapBuilt
       .then(() => resolutionRequest.resolveDependency(from, id))
       .then(
