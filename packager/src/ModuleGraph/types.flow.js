@@ -126,6 +126,7 @@ export type TransformResults = {[string]: TransformResult};
 export type TransformVariants = {[key: string]: Object};
 
 export type TransformedFile = {
+  assetContent: ?string,
   code: string,
   file: string,
   hasteID: ?string,
@@ -133,3 +134,17 @@ export type TransformedFile = {
   transformed: TransformResults,
   type: FileTypes,
 };
+
+export type LibraryOptions = {|
+  dependencies?: Array<string>,
+  platform?: string,
+  root: string,
+|};
+
+export type Base64Content = string;
+
+export type Library = {|
+  files: Array<TransformedFile>,
+  /* cannot be a Map because it's JSONified later on */
+  assets: {[destFilePath: string]: Base64Content},
+|};
