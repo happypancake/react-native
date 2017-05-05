@@ -62,7 +62,7 @@ type RequiredProps<ItemT> = {
    * For simplicity, data is just a plain array. If you want to use something else, like an
    * immutable list, use the underlying `VirtualizedList` directly.
    */
-  data: ?Array<ItemT>,
+  data: ?$ReadOnlyArray<ItemT>,
 };
 type OptionalProps<ItemT> = {
   /**
@@ -72,6 +72,11 @@ type OptionalProps<ItemT> = {
    * `separators.updateProps`.
    */
   ItemSeparatorComponent?: ?ReactClass<any>,
+  /**
+   * Rendered when the list is empty. Can be a React Component Class, a render function, or
+   * a rendered element.
+   */
+  ListEmptyComponent?: ?(ReactClass<any> | React.Element<any>),
   /**
    * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
    * a rendered element.
@@ -178,8 +183,6 @@ type Props<ItemT> = RequiredProps<ItemT> & OptionalProps<ItemT> & VirtualizedLis
 
 const defaultProps = {
   ...VirtualizedList.defaultProps,
-  getItem: undefined,
-  getItemCount: undefined,
   numColumns: 1,
 };
 type DefaultProps = typeof defaultProps;
