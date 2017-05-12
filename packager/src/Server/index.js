@@ -12,7 +12,7 @@
 'use strict';
 
 const AssetServer = require('../AssetServer');
-const getPlatformExtension = require('../node-haste').getPlatformExtension;
+const getPlatformExtension = require('../node-haste/DependencyGraph').getPlatformExtension;
 const Bundler = require('../Bundler');
 const MultipartResponse = require('./MultipartResponse');
 
@@ -75,7 +75,7 @@ type Options = {
   resetCache?: boolean,
   silent?: boolean,
   +sourceExts: ?Array<string>,
-  transformModulePath?: string,
+  +transformModulePath: string,
   transformTimeoutInterval?: number,
   watch?: boolean,
 };
@@ -131,7 +131,7 @@ class Server {
     resetCache: boolean,
     silent: boolean,
     +sourceExts: Array<string>,
-    transformModulePath: void | string,
+    +transformModulePath: string,
     transformTimeoutInterval: ?number,
     watch: boolean,
   };
