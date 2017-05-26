@@ -723,6 +723,10 @@ public class UIViewOperationQueue {
     mOperations.add(new UIBlockOperation(block));
   }
 
+  public void prependUIBlock(UIBlock block) {
+    mOperations.add(0, new UIBlockOperation(block));
+  }
+
   /* package */ void dispatchViewUpdates(final int batchId) {
     // Store the current operation queues to dispatch and create new empty ones to continue
     // receiving new operations
